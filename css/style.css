@@ -1,0 +1,122 @@
+.menu-container {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    text-align: right;
+  }
+  
+  .menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .menu-list li {
+    display: inline-block;
+    margin-left: 10px;
+  }
+
+* {
+    font-family: 'Montserrat';
+}
+
+body {
+    margin:0px;
+    padding:0px;
+    min-width: fit-content;
+}
+
+
+.mainbox {
+    width: 610px;
+    padding: 30px;
+    margin: 30px;
+    margin-right:auto;
+    margin-left: auto;
+    border: 1px soild black;
+    box-shadow: 0 1px 20px 0 reba(0, 0, 0, 0.2);
+  }
+  
+  
+  section {
+    margin-bottom:24px;
+  }
+  
+  h1{
+    margin:0px;
+    padding:0px;
+    font-size:36px;
+    font-weight: bold;
+    font-style: italic;
+    margin-bottom: 8px;
+    text-align: left;
+  }
+
+  h2 {
+    margin:0px;
+    padding:0px;
+    font-size:20px;
+    color:#2aad3c;
+    font-weight: 400;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #3d3c3c;
+    padding-bottom: 5px;
+ }
+ 
+  .goo{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    float: left;
+  }
+
+.food{
+  width: 170px;
+  height: 170px;
+  /* border-radius: 50%; */
+  float: left;
+}  
+.ch{
+  width: 500px;
+  height: 300px;
+}
+
+  .title{
+    font-size:16px;
+    color:#7c7c7c;
+    font-weight: bold;
+    float: right;
+    line-height: 16px;
+  }
+
+  .float-wrap {
+    overflow: hidden;
+    margin-bottom: 4px;
+    }
+
+  .text{
+    line-height: 16px;
+    font-size: 15px;
+    font-weight:bold;
+    color:black;
+    margin-bottom:6px;
+  }
+  
+  .subtext{
+    font-size: 14px;
+    color:#3a3a3a;
+    padding-left:16px;
+    margin-bottom:8px;
+  }
+
+  .righttext{
+    font-size:11px;
+    font-weight: 300;
+    color: #282828;
+    float: right;
+  }
+  
+  .sns-img{
+    width: 30px;
+    height: 30px;
+  }

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+</head>
+<body>
+</ol>
+</li>
+</ol>
+<form action="javascript:signup();" name="memberFrm">
+    
+<table id="enroll"> <!-- 회원 정보 테이블-->
+    <tr>
+        <th>아이디<span class="req">*</span></th>
+        <td>
+            <input type="text" name="userId" id="userId"value="">
+            <span class="err" id="errId"></span>
+        </td>
+    </tr>
+    <tr>
+        <th>비밀번호<span class="req">*</span></th>
+        <td>
+            <input type="password" name="pwd" id="pwd"value=''>
+            <span class="err" id="errPw"></span>
+        </td>
+    </tr>
+    <tr>
+        <th>비밀번호확인</th>
+        <td>
+            <input type="password" id="pwdCheck"value=''>
+            <span class="err" id="errpwdCheck"></span>
+        </td>
+    </tr>
+    <tr>
+        <th>이름<span class="req">*</span></th>
+        <td>
+            <input type="text" name="userName" id="userName"value=''>
+            <span class="err" id="errName"></span>
+        </td>
+    </tr>
+    <tr>
+        <th>주민번호<span class="req">*</span></th>
+        <td>
+            <input type="text" name="ssn1" id="ssn1" class="short"value=''>-
+            <input type="password" name="ssn2" id="ssn2" class="short"value=''>
+            <span class="err" id="errSsn"></span>
+        </td>
+    </tr>
+    <tr>
+        <th>이메일<span class="req">*</span></th>
+        <td>
+            <input type="email" name="email" id="email"value=''>
+            <span class="err" id="errEmail"></span>
+        </td>
+    </tr>
+    <tr>
+        <th>전화번호<span class="req">*</span></th>
+        <td>
+            <input type="text" name="tel1" id="tel1" class="phone"value=''>-
+            <input type="text" name="tel2" id="tel2" class="phone"value=''>-
+            <input type="text" name="tel3" id="tel3" class="phone"value=''>
+            <span class="err" id="errphone"></span>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" class="btn-wrapper">
+            <input type="submit" value="제출">&nbsp;
+            <input type="reset" value="초기화">
+        </td>
+    </tr>
+</table>
+</form>
+<script>
+//각 입력된 정보값 받아오기 
+const id = document.querySelector('#userId'); // 아이디 입력 필드를 선택
+const pw = document.querySelector('#pwd'); // 비밀번호 입력
+const pwdCheck = document.querySelector('#pwdCheck'); // 비밀번호 확인
+const userName = document.querySelector('#userName'); // 이름
+const ssn1 = document.querySelector('#ssn1'); // 주민번호 앞자리
+const ssn2 = document.querySelector('#ssn2'); // 주민번호 뒷자리
+const email = document.querySelector('#email'); // 이메일 
+const tel1 = document.querySelector('#tel1'); // 전화번호 첫 번째 
+const tel2 = document.querySelector('#tel2'); // 전화번호 두 번째
+const tel3 = document.querySelector('#tel3'); // 전화번호 세 번째
+
+const errId = document.querySelector('#errId'); // 아이디 에러 메시지를 표시할 요소 선택
+const errPw = document.querySelector('#errPw');
+const errpwdCheck = document.querySelector('#errpwdCheck');
+const errName = document.querySelector('#errName');
+const errSsn = document.querySelector('#errSsn');
+const errEmail = document.querySelector('#errEmail');
+const errphone = document.querySelector('#errphone');
+
+document.memberFrm.onsubmit = function (e) {
+
+    // 각 받아온정보 함수로 보내고, 유효성검사 실패시 안넘어가게 하기
+    if (!validationsId(id.value)) { e.preventDefault(); }
+    if (!validationsPw(pw.value)) { e.preventDefault(); }
+    if (pw.value != pwdCheck.value) {
+        errpwdCheck.innerHTML = '비밀번호가 일치하지않습니다.';
+        errpwdCheck.style.display = 'inline';
+        e.preventDefault();
+    }
+    if (!validationsName(userName.value)) { e.preventDefault(); }
+    if (!validationsssn1(ssn1.value)) { e.preventDefault(); }
+    if (!validationsssn2(ssn2.value)) { e.preventDefault(); }
+    if (!validationsEmail(email.value)) { e.preventDefault(); }
+    if (!validationstel1(tel1.value)) { e.preventDefault(); }
+    if (!validationstel2(tel2.value)) { e.preventDefault(); }
+    if (!validationstel3(tel3.value)) { e.preventDefault(); }
+}
+//함수로 인자전달받아 유효성검사 후 html 추가하는 기능 
+// function validationstel3(tel3) {
+//     const validationstel3 = [
+//         { reTel: /\d{4,}/, msg: '마지막번호는4자리이상 입력해주세요' }
+//     ];
+//     for (const { reTel, msg } of validationstel3) {
+//         if (!reTel.test(tel3)) {
+//             errphone.innerHTML = msg;
+//             errphone.style.display = 'inline';
+//             return false;
+//         }
+//     }
+//     return true;
+// }
+
+// 유효성검사
+function validationstel2(tel2) {
+    const validationstel2 = [
+        { reTel: /\d{3,}/, msg: '가운데번호를3자리이상입력해주세요' }
+    ];
+    for (const { reTel, msg } of validationstel2) {
+        if (!reTel.test(tel2)) {
+            errphone.innerHTML = msg;
+            errphone.style.display = 'inline';
+            return false;
+        }
+    }
+    return true;
+}
+function validationstel1(tel1) {
+    const validationstel1 = [
+    { reTel: /\d{2,}/, msg: '지역번호 /010 을 숫자로 입력해주세요' }
+    ];
+    for (const { reTel, msg } of validationstel1) {
+        if (!reTel.test(tel1)) {
+            errphone.innerHTML = msg;
+            errphone.style.display = 'inline';
+            return false;
+        }
+    }
+    return true;
+}
+
+
+function validationsEmail(email) {
+    const validationsEmail = [
+        { reEmail: /[\w]{4,12}@/, msg: '@앞 아이디는 4~12글자입니다.' },
+        { reEmail: /[\w]{4,12}@[\w]+\.[\w]+/, msg: '이메일 형식에 맞지않습니다. @, .com.. 확인해주세요' },
+    ];
+    for (const { reEmail, msg } of validationsEmail) {
+        if (!reEmail.test(email)) {
+            errEmail.innerHTML = msg;
+            errEmail.style.display = 'inline';
+            return false;
+        }
+    }
+    return true;
+}
+
+function validationsssn2(ssn2) {
+    const validationsssn2 = [
+        { reSsn: /^.{7}$/, msg: '주민번호는 13자리이여야합니다.' },
+        { reSsn: /^\d{7}$/, msg: '주민번호는 숫자로만 작성되어야 합니다.' },
+        // { reSsn: /^......[1-4]/, msg: '잘못입력하셨습니다...' }
+    ];
+
+    for (const { reSsn, msg } of validationsssn2) {
+        if (!reSsn.test(ssn2)) {
+
+            errSsn.innerHTML = msg;
+            errSsn.style.display = 'inline';
+
+            return false;
+        }
+    }
+    return true;
+}
+
+function validationsssn1(ssn1) {
+    const validationsssn1 = [
+        { reSsn: /^.{6}$/, msg: '주민번호는 13자리이여야합니다.' },
+        { reSsn: /^\d{6}$/, msg: '주민번호는 숫자로만 작성되어야 합니다.' },
+        { reSsn: /^..(0[1-9]|1[0-2])/, msg: '월은 01~12입니다..' },
+        { reSsn: /^....(0[1-9]|1[0-9]|2[0-9]|3[0-1])/, msg: `일은1~31일 입니다..` },
+    ];
+
+    for (const { reSsn, msg } of validationsssn1) {
+        if (!reSsn.test(ssn1)) {
+            errSsn.innerHTML = msg;
+            errSsn.style.display = 'inline';
+
+            return false;
+        }
+    }
+    return true;
+}
+
+function validationsName(userName) {
+    const validationsName = [
+        { reName: /^.{2,}$/, msg: '이름은 두 글자 이상이어야 합니다.' },
+        { reName: /[가-힣]/, msg: '이름을 한글로 정확히 입력해주세요.' }
+    ];
+    for (const { reName, msg } of validationsName) {
+        if (!reName.test(userName)) {
+            errName.innerHTML = msg;
+            errName.style.display = 'inline';
+            return false;
+        }
+    }
+    return true;
+}
+
+function validationsId(id) {
+    const validationsId = [
+        { reId: /^.{4,12}$/, msg: '아이디는 4~12자리여야 합니다.' },
+        { reId: /^[a-z]/, msg: '아이디의 시작은 영소문자이여야 합니다.' },
+        { reId: /\d/, msg: '아이디는 숫자 하나이상 포함해야합니다.' },
+    ];
+    for (const { reId, msg } of validationsId) {
+        if (!reId.test(id)) {
+            errId.innerHTML = msg;
+            errId.style.display = 'inline';
+            return false;
+        }
+    }
+    return true;
+}
+
+function validationsPw(pw) {
+    const validationsPw = [
+        { rePw: /^.{8,15}$/, msg: '비밀번호는 8~15자리여야 합니다.' },
+        { rePw: /\d/, msg: '비밀번호는 숫자를 하나이상 포함해야합니다.' },
+        { rePw: /[a-z]/i, msg: '비밀번호는 영문자를 하나이상 포함해야합니다.' },
+        { rePw: /[(*!&@]/, msg: '비밀번호는 특수문자((*!&@)를 하나이상 포함해야합니다.' }
+    ];
+    for (const { rePw, msg } of validationsPw) {
+        if (!rePw.test(pw)) {
+            errPw.innerHTML = msg;
+            errPw.style.display = 'inline';
+            return false;
+        }
+    }
+    return true;
+};
+
+function signup(){
+    const userId = document.getElementById("userId").value;
+    const pw = document.getElementById('pwd').value;
+    const name = document.getElementById('userName').value;
+    const idnumber = document.getElementById('ssn1').value + ' - ' + document.getElementById('ssn2').value;
+    const email = document.getElementById('email').value;
+    const phonenum = document.getElementById('tel1').value + ' - ' + document.getElementById('tel2').value + ' - ' + document.getElementById('tel3').value;
+
+    const obj = {
+        userId: userId,
+        pw: pw,
+        name: name,
+        idnumber: idnumber,
+        email: email,
+        phonenum: phonenum 
+    };
+
+    if( localStorage.getItem('memberList') == null )
+        memberList = new Array();
+    else
+        memberList = JSON.parse(localStorage.getItem('memberList'));
+
+    memberList.push(obj);
+    
+    localStorage.setItem('memberList', JSON.stringify(memberList));
+
+    console.log(localStorage.getItem('memberList'));
+    alert("회원가입이 완료되엇습니다.");
+
+    //로컬스토리지에 저장된 리스트를 불러온다
+
+    //위에서 받은 회원정보로 만든 obj를 리스트에 추가한다.
+
+    //리스트를 로컬 스토리지에 저장한다.
+    
+    
+    
+
+};
+
+
+id.onblur = () => errId.style.display = 'none';
+pw.onblur = () => errPw.style.display = 'none';
+pwdCheck.onblur = () => errpwdCheck.style.display = 'none';
+userName.onblur = () => errName.style.display = 'none';
+ssn1.onblur = () => errSsn.style.display = 'none';
+ssn2.onblur = () => errSsn.style.display = 'none';
+email.onblur = () => errEmail.style.display = 'none';
+tel1.onblur = () => errphone.style.display = 'none';
+tel2.onblur = () => errphone.style.display = 'none';
+tel3.onblur = () => errphone.style.display = 'none';
+
+
+
+</script>
+</body>
+</html>
